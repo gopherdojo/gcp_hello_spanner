@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"cloud.google.com/go/spanner"
+	"github.com/k0kubun/pp"
 )
 
 var testClient *spanner.Client
@@ -28,7 +29,42 @@ func TestMain(m *testing.M) {
 func TestInsertItem(t *testing.T) {
 	ctx := context.Background()
 
-	if err := InsertItem(ctx, testClient); err != nil {
+	if _, err := InsertItem(ctx, testClient); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestInsertOrder(t *testing.T) {
+	ctx := context.Background()
+
+	details := []OrdersDetailParam{}
+	details = append(details, OrdersDetailParam{
+		ItemID: "hoge",
+		Price:  100,
+		Count:  2,
+	})
+	details = append(details, OrdersDetailParam{
+		ItemID: "fuga",
+		Price:  200,
+		Count:  3,
+	})
+	if _, err := InsertOrder(ctx, "hoge@example.com", details, testClient); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestQueryOrders(t *testing.T) {
+	ctx := context.Background()
+
+	ol, err := QueryOrders(ctx, testClient)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if ol[0].CustomerEmail == "" {
+		t.Errorf("CustomerEmail is Empty")
+	}
+	if len(ol[0].Details) == 0 {
+		t.Errorf("Details is Empty")
+	}
+	pp.Println(ol)
 }
