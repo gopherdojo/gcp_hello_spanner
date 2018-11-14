@@ -10,4 +10,4 @@
 
 ## Part 5 Interleave Tableを試す
 
-## Part 5 Sharding Counterを作成する
+## Part 6 Sharding Counterを作成する
