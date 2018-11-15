@@ -1,5 +1,7 @@
 # hello_spanner
 
+[Google Cloud Spanner](https://cloud.google.com/spanner/) のハンズオンです。
+
 ## 環境構築
 
 https://spanner.gcpug.jp/ を見て、GCPUG Shared Spannerを使えるように権限を貰います。
