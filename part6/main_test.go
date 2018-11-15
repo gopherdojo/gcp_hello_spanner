@@ -29,7 +29,7 @@ func TestMain(m *testing.M) {
 func TestIncrement(t *testing.T) {
 	ctx := context.Background()
 
-	count, err := Increment(ctx, testClient)
+	count, err := IncrementAccessCounter(ctx, testClient)
 	if err != nil {
 		t.Fatal(err)
 	}
