@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/codes"
 )
 
-const databaseName = "sinmetal-test1"
+const databaseName = "{your slack id}"
 
 const (
 	accessCounterTableName = "AccessCounter"

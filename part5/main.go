@@ -12,7 +12,7 @@ import (
 	"google.golang.org/api/iterator"
 )
 
-const databaseName = "sinmetal-test1"
+const databaseName = "{your slack id}"
 
 func main() {
 	fmt.Println("ignite")

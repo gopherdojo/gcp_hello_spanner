@@ -11,7 +11,7 @@ import (
 	"google.golang.org/api/iterator"
 )
 
-const databaseName = "sinmetal-test1"
+const databaseName = "{your slack id}"
 
 type Tweet struct {
 	ID         string `spanner:"Id"`

@@ -29,19 +29,19 @@ func main() {
 
 	ctx := context.Background()
 
-	sc := createClient(ctx, fmt.Sprintf("projects/gcpug-public-spanner/instances/merpay-sponsored-instance/databases/%s", databaseName))
+	sc := CreateClient(ctx, fmt.Sprintf("projects/gcpug-public-spanner/instances/merpay-sponsored-instance/databases/%s", databaseName))
 
 	now := time.Now()
 	t := Tweet{
-		ID : uuid.New().String(),
-		Author: "sinmetal",
-		Content: "Hello Spanner",
-		Favos: []string{},
-		CreatedAt: now,
-		UpdatedAt: now,
+		ID:         uuid.New().String(),
+		Author:     "sinmetal",
+		Content:    "Hello Spanner",
+		Favos:      []string{},
+		CreatedAt:  now,
+		UpdatedAt:  now,
 		CommitedAt: spanner.CommitTimestamp,
 	}
-	if err := insert(ctx, &t, sc); err != nil {
+	if err := Insert(ctx, &t, sc); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("insert id = %s\n", t.ID)
@@ -49,7 +49,7 @@ func main() {
 	fmt.Println("done")
 }
 
-func createClient(ctx context.Context, db string) (*spanner.Client) {
+func CreateClient(ctx context.Context, db string) *spanner.Client {
 	dataClient, err := spanner.NewClient(ctx, db)
 	if err != nil {
 		log.Fatal(err)
@@ -58,7 +58,7 @@ func createClient(ctx context.Context, db string) (*spanner.Client) {
 	return dataClient
 }
 
-func insert(ctx context.Context, tweet *Tweet, client *spanner.Client) (error) {
+func Insert(ctx context.Context, tweet *Tweet, client *spanner.Client) error {
 	m, err := spanner.InsertStruct("Tweet", tweet)
 	if err != nil {
 		return err

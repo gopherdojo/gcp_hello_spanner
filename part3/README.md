@@ -6,7 +6,7 @@ SpannerをGoから利用する場合 `cloud.google.com/go/spanner` packageを利
 SpannerはSessionの作成に2secぐらいかかるので、最初にSpannerClientを作成して、基本的にはそのClientを使いまわしていきます。
 
 ```
-func createClient(ctx context.Context, db string) (*spanner.Client) {
+func CreateClient(ctx context.Context, db string) (*spanner.Client) {
 	dataClient, err := spanner.NewClient(ctx, db)
 	if err != nil {
 		log.Fatal(err)
@@ -23,7 +23,7 @@ SpannerはDMLに対応しているので、 `INSERT文` も実行できますが
 ApplyはAtomicに実行されるので、複数行のInsertを行いたい場合は、Mutationを複数Applyに渡します。
 
 ```
-func insert(ctx context.Context, tweet *Tweet, client *spanner.Client) (error) {
+func Insert(ctx context.Context, tweet *Tweet, client *spanner.Client) (error) {
 	m, err := spanner.InsertStruct("Tweet", tweet)
 	if err != nil {
 		return err
@@ -39,7 +39,7 @@ func insert(ctx context.Context, tweet *Tweet, client *spanner.Client) (error) {
 ## INSERTされたRowを確認する
 
 ```
-gcloud spanner databases execute-sql sinmetal-test1 --project gcpug-public-spanner --sql \
+gcloud spanner databases execute-sql {your slack id} --project gcpug-public-spanner --sql \
 "select * from Tweet"
 
 Id                                    Author    CommitedAt                  Content        Count  CreatedAt                    Favos  Sort  UpdatedAt
